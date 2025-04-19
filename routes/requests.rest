@@ -1,0 +1,15 @@
+POST http://localhost:8000/register
+
+{
+    "email": "seyiomole@gmail.com",
+    "password": "Sheymano1@"
+}
+
+
+########
+POST http://localhost:8000/generate-path
+content-Type: : application/json
+
+{
+    language: "Javascript"
+}

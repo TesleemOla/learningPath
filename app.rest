@@ -1,0 +1,13 @@
+POST http://localhost:8000/register
+content-Type: application/json
+
+{
+    "username": "Tesleem1",
+    "password": "Tesladinho",
+    "email": "oladepotesleem@gmail.com",
+    "firstName": "Tesleem",
+    "lastName": "Tayo"
+}
+###
+
+GET http://localhost:8000/157
