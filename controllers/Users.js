@@ -4,7 +4,6 @@ import User from "../models/Users.js"
 
 const createUser = asyncHandler(async (req, res)=>{
     const { email, password, firstName, lastName, username } = req.body
-    console.log(req.body)
     if(!username || !password || !email || !firstName || !lastName){
         return res.status(500).json({ success: false, error: "All fields required to register"})
     }

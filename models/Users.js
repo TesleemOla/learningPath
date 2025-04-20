@@ -1,4 +1,5 @@
 import { model, Schema } from "mongoose"
+import bcrypt from "bcrypt"
 
 const user = Schema({
     email: {
@@ -24,7 +25,7 @@ const user = Schema({
         required: true,
 
     },
-    accounttype: {
+    role: {
         type: String,
         enum: ["CLIENT", "ADMIN"],
         default: "CLIENT"
@@ -37,8 +38,9 @@ const user = Schema({
     statics:{
         createUser: async function(email,password,firstName, lastName, username){
             try{
-            const newUser = await this.create({email, password, firstName, lastName, username})
-            return newUser
+                const hashedPassword = await bcrypt.hash(password, Number(process.env.SALT))
+                const newUser = await this.create({email, password: hashedPassword, firstName, lastName, username})
+                return newUser
             }catch(err){
                 throw err
             }
@@ -71,5 +73,6 @@ const user = Schema({
         }
     }
 },{timestamps: true})
+
 
 export default model("User", user)

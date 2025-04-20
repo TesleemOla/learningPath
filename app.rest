@@ -10,4 +10,25 @@ content-Type: application/json
 }
 ###
 
-GET http://localhost:8000/157
+GET http://localhost:8000/6803d6d21179b604a31e2c46
+###
+
+POST http://localhost:8000/login
+content-Type: application/json
+
+{
+    "email": "oladepotesleem@gmail.com",
+    "password": "Tesladinho"
+}
+
+###
+
+POST http://localhost:8000/generate-path/arabic
+content-Length: application/json
+
+{
+    "language": "Python"
+}
+
+###
+GET http://localhost:8000/session/logout
