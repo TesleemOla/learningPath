@@ -1,11 +1,12 @@
 export function parseAIResponse(originalInput) {
-  
- 
+    // const formattedText = originalInput.replace(/[*\n#]/g, '');
+    // const topics = originalInput.filter(/\*\*(.*?)\*\*/g)
+    // console.log(topics)
     const weeks = [];
-    const weekSections = input.split(/\*\*Week \d+: /).slice(1); // Split by week headers and remove the first empty element
+    const weekSections = originalInput.split(/\*\*Week \d+: /).slice(1); // Split by week headers and remove the first empty element
 
     weekSections.forEach((section) => {
-        const [titleAndGoal, ...rest] = section.split(/\*\*Topics:\*\*/ || /\*\*Key Topics:\*\*/);
+        const [titleAndGoal, ...rest] = section.split(/\*\*Topics:\*\*/ || /\*\*\s*Key Topics:\*\*/);
         const [title, goal] = titleAndGoal.split(/\*\*Goal:\*\s*/).map((s) => s.trim());
 
         const [topicsAndProject, resources] = rest.join("").split(/\*\*Project:\*\*/);
@@ -19,10 +20,10 @@ export function parseAIResponse(originalInput) {
             : "";
 
         weeks.push({
-            title: title.trim(),
+            title: title.replace(/[*\n#]/g, "").trim(),
             goal: goal.trim(),
             topics,
-            project,
+            project
         });
     });
 

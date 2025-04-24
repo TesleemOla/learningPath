@@ -5,6 +5,7 @@ import { createUser } from "./controllers/Users.js";
 import morgan from "morgan"
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import userrouter from "./routes/users.js";
+import { prompt } from "./prompt.js";
 import { parseAIResponse } from "./utils/formatter.js";
 
 
@@ -60,12 +61,12 @@ app.post('/generate-path/:language', isAuthenticated, async(req, res) => {
 
   try {
     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-    const prompt = `Create a personalized 4-week beginner-to-advanced learning path for someone wanting to learn ${language}. Include weekly goals and key topics.
-    Write this in a clear and consise format`;
 
-    const result = await model.generateContent(prompt);
-    // console.log(result.response.text())
-    const content = parseAIResponse(result.response.text());
+
+    const result = await model.generateContent(prompt(language, "expertise", "Beginner", "4 weeks"));
+    console.log(result.response)
+    const content  = result.response.text()
+    // const content = parseAIResponse(result.response.text());
     
     // res.json(content);
     return res.status(200).json(content)

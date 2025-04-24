@@ -2,20 +2,23 @@ import { Schema, model } from "mongoose";
 
 
 const path= Schema({
-    name:{
+    title:{
         type: String,
         required: true,
-        unique: true,
     },
-    progress: {
-        type: Number,
-        default: 0
+    description:{
+        type: String,
+        required: true,
     },
-    data: {
-        type: [{
-            title: String,
-            description: String,
-        },
-    ]
+    modules:{
+        name: String,
+        description: String,
+        topics: [String],
+        resources: [String],
+        estimatedHours: Number,
+        projects: [String]
     }
 })
+
+
+export default model("Path", path)
