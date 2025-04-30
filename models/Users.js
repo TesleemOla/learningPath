@@ -30,9 +30,10 @@ const user = Schema({
         enum: ["CLIENT", "ADMIN"],
         default: "CLIENT"
     },
-    plans: {
-        type: String
-    },
+    plans: [{
+        type: Schema.Types.ObjectId,
+        ref: "paths"
+    }],
 },
 {
     statics:{
@@ -47,7 +48,7 @@ const user = Schema({
         },
         editUser: async function(email, password,firstName,lastName,id){
             try{
-                const editableUser = await this.findById(id)
+                const editableUser = await this.findByIdAndUpdate(id,{})
                 if(!editableUser){
                     throw err
                 }

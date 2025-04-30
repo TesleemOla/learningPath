@@ -1,4 +1,4 @@
-export const prompt =(topic,goal, currentLevel, timeCommitment)=>{
+const pathPrompt =(topic,goal, currentLevel, timeCommitment)=>{
     return  `
       Create a structured learning path for a student with the following details:
       - Topic: ${topic}
@@ -21,6 +21,7 @@ export const prompt =(topic,goal, currentLevel, timeCommitment)=>{
           {
             "name": "Module name",
             "description": "Module description",
+            keywords: ["Keywords"],
             "topics": ["Topic 1", "Topic 2", "Topic 3"],
             "resources": ["Resource 1", "Resource 2"],
             "estimatedHours": 10,
@@ -31,3 +32,16 @@ export const prompt =(topic,goal, currentLevel, timeCommitment)=>{
 
     `;
 }
+
+const modulePrompt = (topic)=>{
+  return `
+  create an in-depth learning material of about 10 to 15 paragraphs based on ${topic}.
+  Format the response as a JSON object with the following structure
+  {
+  module: "topic",
+  learning material: " essay",
+  additional resources: ["external links"],
+  } `
+}
+
+export { pathPrompt, modulePrompt}

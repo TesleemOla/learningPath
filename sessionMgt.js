@@ -17,8 +17,8 @@ export function authorizeRole(role) {
 export const Login = async (req, res) => {
     
     const { email, password } = req.body;
-    const findIt = await Users.findUserByEmail(email)
-
+    const findIt = await Users.findUserByEmail(email.toLowerCase())
+    console.log(findIt)
     const compared = bcrypt.compareSync(password, findIt.password)
     if (findIt && compared) {
         // Authentication successful

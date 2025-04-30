@@ -5,7 +5,7 @@ import { createUser } from "./controllers/Users.js";
 import morgan from "morgan"
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import userrouter from "./routes/users.js";
-import { prompt } from "./prompt.js";
+import { pathPrompt } from "./prompt.js";
 import { parseAIResponse } from "./utils/formatter.js";
 
 
@@ -30,8 +30,10 @@ app.use(session({
   secret: 'process.env.SESSION_SECRET',
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false },
-  maxAge: 5*60*60 
+  cookie: { secure: false, 
+    httpOnly: false
+  },
+  maxAge: 5*24*60*60*60  // 5days secure login
 }));
 
 // Auth middleware
@@ -63,8 +65,7 @@ app.post('/generate-path/:language', isAuthenticated, async(req, res) => {
     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
 
-    const result = await model.generateContent(prompt(language, "expertise", "Beginner", "4 weeks"));
-    console.log(result.response)
+    const result = await model.generateContent(pathPrompt(language, "expertise", "Beginner", "4 weeks"));
     const content  = result.response.text()
     // const content = parseAIResponse(result.response.text());
     

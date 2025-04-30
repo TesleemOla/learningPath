@@ -18,7 +18,16 @@ const path= Schema({
         estimatedHours: Number,
         projects: [String]
     }
-})
+},
+{statics:{
+    createPath: function(){
+
+    },
+    findPath: function(){
+
+    },
+
+}})
 
 
 export default model("Path", path)
